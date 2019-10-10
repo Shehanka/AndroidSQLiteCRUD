@@ -1,9 +1,10 @@
-package com.chamodshehanka.androidsqlitecrud;
+package com.chamodshehanka.androidsqlitecrud.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -20,7 +21,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
-
     }
 
 
@@ -29,7 +29,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(
                 "CREATE TABLE " +
                         TABLE_NAME +
-                        "(ID INTERGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Address TEXT, Marks TEXT)");
+                        "(ID INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Address TEXT, Marks TEXT)");
     }
 
     @Override
@@ -45,6 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_3, student.getAddress());
         contentValues.put(COL_4, student.getMarks());
         long result = db.insert(TABLE_NAME, null, contentValues);
+        Log.w("Result", "" + result);
         return result != -1;
     }
 }

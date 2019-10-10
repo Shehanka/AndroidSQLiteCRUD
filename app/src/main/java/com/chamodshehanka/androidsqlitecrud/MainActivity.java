@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.chamodshehanka.androidsqlitecrud.db.DatabaseHelper;
 import com.chamodshehanka.androidsqlitecrud.model.Student;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         txtAddress = findViewById(R.id.txtAddress);
         txtMarks = findViewById(R.id.txtMarks);
         btnAddData = findViewById(R.id.btnAddData);
-
         addStudent();
     }
 
