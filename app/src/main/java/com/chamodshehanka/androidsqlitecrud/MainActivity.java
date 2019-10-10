@@ -1,11 +1,13 @@
 package com.chamodshehanka.androidsqlitecrud;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chamodshehanka.androidsqlitecrud.db.DatabaseHelper;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     EditText txtAddress;
     EditText txtMarks;
     Button btnAddData;
+    Button btnViewAll;
 
 
     @Override
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         txtMarks = findViewById(R.id.txtMarks);
         btnAddData = findViewById(R.id.btnAddData);
         addStudent();
+
+        btnViewAll = findViewById(R.id.btnViewAll);
+        viewAllStudents();
     }
 
     public void addStudent() {
@@ -48,5 +54,30 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void viewAllStudents() {
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor res = databaseHelper.getAllData();
+
+                if (res.getCount() > 0) {
+                    StringBuilder buffer = new StringBuilder();
+                    while (res.moveToNext()) {
+                        buffer.append("ID : ").append(res.getString(0)).append("\n");
+                        buffer.append("Name : ").append(res.getString(1)).append("\n");
+                        buffer.append("Address : ").append(res.getString(2)).append("\n");
+                        buffer.append("Marks : ").append(res.getString(3)).append("\n");
+                    }
+                }
+            }
+        });
+    }
+
+    public void showMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+
     }
 }
